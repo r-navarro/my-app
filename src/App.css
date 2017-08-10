@@ -1,0 +1,301 @@
+:root {
+  --main-bg-color: #2196F3;
+  --app-bg-color: #E1F5FE;
+  --title-bg-color: #03A9F4;
+}
+
+.minHeight72 {
+  min-height: 72px;
+}
+
+.App {
+  text-align: center;
+  background-color: var(--app-bg-color);
+  height: 100%;
+  width: 100%;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* button */
+.mainButton {
+  background-color: var(--main-bg-color);
+  border-radius: 25px;
+  color: white;
+  max-width: 30px;
+  padding: 10px;
+}
+
+/* notification */
+
+.notificationBlock {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin-left: -150px;
+}
+
+.notification {
+  font-size: 14px;
+  min-width: 300px;
+  padding:5px 0;
+  position:absolute;
+  top:0;
+  left:50%;
+  box-sizing:border-box;
+  border-radius:15px;
+  background-color:#fff;
+  color:#3a9ab9;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.animateOpen {
+  -webkit-animation:moveOpen 4s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+}
+/* Safari and Chrome */
+@-webkit-keyframes moveOpen 
+{
+  from {-webkit-transform: translate(0,-100px);}
+  10% {-webkit-transform: translate(0,20px);}
+  12% {-webkit-transform: translate(0,22px);}
+  16% {-webkit-transform: translate(0,20px);}
+  80% {-webkit-transform: translate(0,20px);}
+  85% {-webkit-transform: translate(0,25px);}
+  to {-webkit-transform: translate(0,-100px);}
+}
+
+/* Login */
+
+.loginForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 7px #888888;
+  width: 350px;
+  display: flow-root;
+}
+
+.loginHeader {
+  background-color: var(--main-bg-color);
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+  padding: 10px 0px 10px 0px;
+}
+
+.loginCircle {
+  height: 50px !important;
+  width:50px !important;
+}
+
+.loginFieldsWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.loginFields {
+  margin: 10px;
+}
+.loginFields button {
+  width: 100%
+}
+
+.badLogin {
+  margin: 10px 0px 10px 10px;
+  color:red;
+  font-style: italic;
+}
+
+/* dashboard */
+
+.dashBoardWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.carInfoWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+}
+
+/* cars */
+
+.carsTab {
+  flex-grow: 1;
+  width: 100%;
+  margin-top: 3px;
+}
+
+
+.carDialog {
+  width: 450px;
+  margin: 20px;
+}
+
+.dialogHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.dialogTitle {
+  width: 80%;
+}
+
+.dialogCloseButton {
+  float: right;
+  margin-left: 25px;
+  margin-top: -15px;
+}
+
+.dialogCloseButton:hover {
+  color: red;
+}
+
+.carWrapper {
+  width: 30%;
+  box-shadow: 1px 1px 7px #888888;
+  background-color: white;
+  margin-right: 15px;
+}
+
+.carFieldWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.carSubFieldWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 25px;
+  width: 80%;
+}
+
+.carMainField {
+  background-color: var(--title-bg-color);
+  width: 100%;
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.carField {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.carLabel {
+  min-width: 30%;
+  color: grey;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.carValue {
+  font-weight: bold;
+}
+
+.carFieldsAndButtons {
+  display: flex;
+  flex-direction: row;
+}
+
+.carButtons {
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  margin: 45px;
+  width: 20%;
+}
+
+.carButtons div {
+  margin-left: 10px;
+}
+
+.carTrend {
+  width: 70%;
+  box-shadow: 1px 1px 7px #888888;
+  background-color: white;
+}
+
+/* form */
+
+.textField {
+  margin-bottom: 15px;
+}
+
+.textFieldWrapper {
+
+}
+
+.twoButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  text-align: center;
+}
+
+.twoButtonFirst {
+  width: 50%;
+}
+
+.twoButtonSecond {
+  width: 50%;
+}
+
+/* fuel */
+
+.fuel {
+  box-shadow: 1px 1px 7px #888888;
+  background-color: white;
+}
+
+.fuelHeader {
+  text-align: left;
+  padding: 5px;
+  background-color: var(--title-bg-color);
+}
+
+.fuelWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.fuelTab {
+  width: 50%;
+}
+
+.fuelTrend {
+  width: 50%;
+}
