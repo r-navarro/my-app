@@ -8,7 +8,7 @@ import CarEdit from '../components/cars/CarEdit';
 import Car from '../components/cars/Car'
 import CarTrend from '../components/cars/CarTrend'
 import Fuel from '../components/fuel/Fuel'
-import { changeCar, getCars, getFuel } from '../actions';
+import { changeCar, getCars, reloadFuels } from '../actions';
 import CarDialog from './CarDialog';
 
 const TabContainer = props =>
@@ -22,12 +22,10 @@ class Cars extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.getCars = this.getCars.bind(this);
-    this.getFuel = this.getFuel.bind(this);
   }
 
   componentWillMount() {
    this.getCars();
-   this.getFuel();
   }
 
   getCars() {
@@ -38,18 +36,23 @@ class Cars extends Component {
     });
   }
 
-  getFuel() {
-    const { dispatch } = this.props;
-    dispatch(getFuel());
-  }
-
   handleChange = (event, index) => {
-    const { dispatch } = this.props;
-    dispatch(changeCar(index));
+    const { dispatch, cars } = this.props;
+    dispatch(this.loadThing(index, cars));
   };
+
+  loadThing = (index, cars) => {
+    return function (dispatch, getState) {
+      dispatch(changeCar(index));
+      if(cars[index]) {
+        dispatch(reloadFuels(cars[index].id));
+      }
+    }
+  }
 
   render() {
     let { index, cars } = this.props;
+    const car = cars[index];
     const tabs = [];
     for(let i = 0; i<cars.length; i+=1){
       const car = cars[i];
@@ -73,7 +76,9 @@ class Cars extends Component {
         </AppBar>
         {index === cars.length &&
           <TabContainer>
-            <CarEdit />
+            <div className="newCar">
+              <CarEdit />
+            </div>
           </TabContainer>}
         {index < cars.length &&
           <TabContainer>
@@ -83,7 +88,7 @@ class Cars extends Component {
                 <CarTrend />
               </div>
               <div className="fuelInfoWrapper">
-                <Fuel />
+                <Fuel carId={car.id}/>
               </div>
             </div>
           </TabContainer>}

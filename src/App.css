@@ -249,6 +249,12 @@
   background-color: white;
 }
 
+.newCar {
+  margin: 0px 25% 0px 25%;
+  background: white;
+  padding: 15px;
+}
+
 /* form */
 
 .textField {
