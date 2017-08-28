@@ -38,11 +38,16 @@
 
 /* button */
 .mainButton {
-  background-color: var(--main-bg-color);
-  border-radius: 25px;
-  color: white;
-  max-width: 30px;
-  padding: 10px;
+  background-color: var(--main-bg-color) !important;
+  color: white !important;
+}
+
+
+.littleButton {
+  background-color: var(--main-bg-color) !important;
+  color: white !important;
+  max-width: 35px;
+  max-height: 35px;
 }
 
 /* notification */

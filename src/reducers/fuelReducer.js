@@ -25,6 +25,16 @@ const fuel = (state = initialState, action) => {
 				fuel: {},
 				reload: false,
 			});
+		case ActionTypes.NEXT_FUELS:
+			return Object.assign({}, state, {
+				carId : action.carId,
+				dialogAction: '',
+				activeStep: action.activeStep,
+				steps: action.steps,
+				fuels: action.fuels,
+				fuel: {},
+				reload: false,
+			});
 		case ActionTypes.ADD_FUEL:
 			return Object.assign({}, state, {
 				carId : action.carId,

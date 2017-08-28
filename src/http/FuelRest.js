@@ -11,8 +11,8 @@ export default class FuelRest {
 		return `http://localhost:9090/vehicles/${this.carId}/fullTanks/`;
 	}
 
-	getFuels(dispatch) {
-		return FetchTypes.fetchGet(this.getBaseUrl()).then(result => {
+	getFuels(dispatch, page=0) {
+		return FetchTypes.fetchGet(this.getBaseUrl() + `?page=${page}`).then(result => {
 			if(result.status === 200) {
 				return result.json();
 			} else if (result.status === 403) {

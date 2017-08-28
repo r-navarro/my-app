@@ -6,8 +6,12 @@ import MobileStepper from 'material-ui/MobileStepper';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import FuelRest from '../../http/FuelRest';
 import FuelDialog from '../../containers/FuelDialog';
-import { addFuel, getFuels } from '../../actions';
+import { addFuel, getFuels, nextFuels } from '../../actions';
 import * as DateUtils from '../../utils/DateUtils';
+import Edit from 'material-ui-icons/Edit';
+import Remove from 'material-ui-icons/Remove';
+import Button from 'material-ui/Button';
+
 
 class Fuel extends React.Component {
 
@@ -44,11 +48,19 @@ class Fuel extends React.Component {
   }
 
   handleBack() {
-    console.log('back')
+    const { carId, dispatch, activeStep } = this.props;
+    const nextStep = activeStep - 1;
+    this.fuelRest.getFuels(dispatch, nextStep).then(result => {
+      dispatch(getFuels(carId, result.number, result.totalPages, result.content));
+    })
   }
 
   handleNext() {
-console.log('next')
+    const { carId, dispatch, activeStep } = this.props;
+    const nextStep = activeStep + 1;
+    this.fuelRest.getFuels(dispatch, nextStep).then(result => {
+      dispatch(getFuels(carId, result.number, result.totalPages, result.content));
+    })
   }
 
   render() {
@@ -72,6 +84,8 @@ console.log('next')
                       <TableCell numeric>Cost (€)</TableCell>
                       <TableCell numeric>Quantity</TableCell>
                       <TableCell numeric>Distance</TableCell>
+                      <TableCell numeric></TableCell>
+                      <TableCell numeric></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -90,6 +104,16 @@ console.log('next')
                           <TableCell numeric>
                             {fuel.distance}
                           </TableCell>
+                          <TableCell numeric>
+                            <Button fab className="littleButton">
+                              <Edit />
+                            </Button>
+                          </TableCell>
+                          <TableCell numeric>
+                            <Button fab className="littleButton">
+                              <Remove />
+                            </Button>
+                          </TableCell>
                         </TableRow>
                         );
                     })}
@@ -103,7 +127,7 @@ console.log('next')
                 onBack={this.handleBack}
                 onNext={this.handleNext}
                 disableBack={activeStep === 0}
-                disableNext={activeStep === steps}
+                disableNext={activeStep === steps-1}
               />
             </div>
             <div className="fuelTrend">

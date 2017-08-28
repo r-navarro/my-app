@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { editCar, deleteCar } from '../../actions';
 import Edit from 'material-ui-icons/Edit';
 import Remove from 'material-ui-icons/Remove';
+import Button from 'material-ui/Button';
 
 class Car extends React.Component {
 
@@ -65,12 +66,12 @@ class Car extends React.Component {
             </div>
 
             <div className="carButtons">
-              <div className="mainButton" onClick={this.edit}>
+              <Button fab className="mainButton" onClick={this.edit}>
                 <Edit />
-              </div>
-              <div className="mainButton" onClick={this.delete}>
+              </Button>
+              <Button fab className="mainButton" onClick={this.delete}>
                 <Remove />
-              </div>
+              </Button>
             </div>
           </div>
         </div>
