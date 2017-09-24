@@ -60,6 +60,10 @@ const car = (state = initialState, action) => {
 				dialogOpen: false,
 				edit: true,
 			});
+		case ActionTypes.RELOAD_CAR:
+			return Object.assign({}, state, {
+				reload:true,
+			});
 		default:
 			return state
 	}

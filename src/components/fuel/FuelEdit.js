@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reloadFuels, updateCar } from '../../actions';
+import { reloadFuels } from '../../actions/fuelActions';
+import { reloadCar } from '../../actions';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import FuelRest from '../../http/FuelRest';
@@ -11,29 +12,37 @@ class FuelEdit extends React.Component {
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
-    this.fuelRest = new FuelRest(props.carId);
+    this.fuelRest = new FuelRest(props.carId, props.dispatch);
   }
 
   componentWillUpdate() {
-    const { carId } = this.props;
-    this.fuelRest = new FuelRest(carId);
+    const { carId, dispatch } = this.props;
+    this.fuelRest = new FuelRest(carId, dispatch);
   }
 
   onSubmit = event => {
     const { carId, fuel, dispatch } = this.props;
     event.preventDefault();
     if (!fuel.id) {
-      this.fuelRest.addFuel(fuel, dispatch).then(result => {
+      this.fuelRest.addFuel(fuel).then(result => {
         if(result) {
-          dispatch(reloadFuels(carId));
+          dispatch(this.reloadCar(carId));
         }
       });
     }else {
-      this.fuelRest.updateFuel(fuel, dispatch).then(result => {
+      this.fuelRest.updateFuel(fuel).then(result => {
         if(result) {
-          dispatch(updateCar(result));
+          dispatch(this.reloadCar(carId));
         }
       });
+    }
+  }
+
+
+  reloadCar = (carId) => {
+    return function (dispatch) {
+      dispatch(reloadCar());
+      dispatch(reloadFuels(carId));
     }
   }
 

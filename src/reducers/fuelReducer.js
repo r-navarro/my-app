@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions'
+import * as ActionTypes from '../actions/fuelActions'
 
 const initialState = {
 	activeStep: 0,
@@ -43,7 +43,24 @@ const fuel = (state = initialState, action) => {
 				},
 				dialogAction: 'create',
 			});
+		case ActionTypes.EDIT_FUEL:
+			return Object.assign({}, state, {
+				carId : action.carId,
+				fuel: action.fuel,
+				dialogAction: 'edit',
+			});
 		case ActionTypes.CANCEL_EDIT_FUEL:
+			return Object.assign({}, state, {
+				fuel: {},
+				dialogAction: '',
+			});
+		case ActionTypes.REMOVE_FUEL:
+			return Object.assign({}, state, {
+				carId : action.carId,
+				fuelId: action.fuelId,
+				dialogAction: 'delete',
+			});
+		case ActionTypes.CANCEL_REMOVE_FUEL:
 			return Object.assign({}, state, {
 				fuel: {},
 				dialogAction: '',

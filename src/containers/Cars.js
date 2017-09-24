@@ -8,7 +8,8 @@ import CarEdit from '../components/cars/CarEdit';
 import Car from '../components/cars/Car'
 import CarTrend from '../components/cars/CarTrend'
 import Fuel from '../components/fuel/Fuel'
-import { changeCar, getCars, reloadFuels } from '../actions';
+import { changeCar, getCars } from '../actions';
+import { reloadFuels } from '../actions/fuelActions';
 import CarDialog from './CarDialog';
 
 const TabContainer = props =>
@@ -28,6 +29,10 @@ class Cars extends Component {
    this.getCars();
   }
 
+  componentWillUpdate() {
+    this.getCars();
+  }
+
   getCars() {
     const { dispatch } = this.props;
     const carsRest = new CarsRest();
@@ -38,10 +43,10 @@ class Cars extends Component {
 
   handleChange = (event, index) => {
     const { dispatch, cars } = this.props;
-    dispatch(this.loadThing(index, cars));
+    dispatch(this.loadAssets(index, cars));
   };
 
-  loadThing = (index, cars) => {
+  loadAssets = (index, cars) => {
     return function (dispatch, getState) {
       dispatch(changeCar(index));
       if(cars[index]) {

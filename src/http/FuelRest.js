@@ -3,63 +3,64 @@ import { messageSend } from '../actions';
 
 export default class FuelRest {
 
-	constructor(carId) {
+	constructor(carId, dispatch) {
 		this.carId = carId;
+		this.dispatch = dispatch;
 	}
 
 	getBaseUrl() {
 		return `http://localhost:9090/vehicles/${this.carId}/fullTanks/`;
 	}
 
-	getFuels(dispatch, page=0) {
+	getFuels(page=0) {
 		return FetchTypes.fetchGet(this.getBaseUrl() + `?page=${page}`).then(result => {
 			if(result.status === 200) {
 				return result.json();
 			} else if (result.status === 403) {
-				dispatch(messageSend('Unauthorized'));
+				this.dispatch(messageSend('Unauthorized'));
 			} else if (result.status === 404) {
-				dispatch(messageSend('Not found'));
+				this.dispatch(messageSend('Not found'));
 			}
 		});
 	}
 
-	addFuel(fuel, dispatch) {
+	addFuel(fuel) {
 		return FetchTypes.fetchPost(this.getBaseUrl(), fuel).then(result => {
 			if(result.status === 201) {
 				return result.json();
 			} else if (result.status === 403) {
-				dispatch(messageSend('Unauthorized'));
+				this.dispatch(messageSend('Unauthorized'));
 			} else if (result.status === 400) {
 				result.json().then(json => {
-					dispatch(messageSend(json.errorMessage));
+					this.dispatch(messageSend(json.errorMessage));
 				});
 			}
 		});
 	}
 
-	updateCar(fuel, dispatch) {
-		return FetchTypes.fetchPut(this.getBaseUrl(), fuel).then(result => {
+	updateFuel(fuel) {
+		return FetchTypes.fetchPut(this.getBaseUrl() + fuel.id, fuel).then(result => {
 			if(result.status === 201) {
 				return result.json();
 			} else if (result.status === 403) {
-				dispatch(messageSend('Unauthorized'));
+				this.dispatch(messageSend('Unauthorized'));
 			} else if (result.status === 400) {
 				result.json().then(json => {
-					dispatch(messageSend(json.errorMessage));
+					this.dispatch(messageSend(json.errorMessage));
 				});
 			}
 		});
 	}
 
-	deleteCar(fuelId, dispatch) {
+	deleteFuel(fuelId) {
 		return FetchTypes.fetchDelete(this.getBaseUrl() + fuelId).then(result => {
 			if(result.status === 204) {
 				return result.text();
 			} else if (result.status === 403) {
-				dispatch(messageSend('Unauthorized'));
+				this.dispatch(messageSend('Unauthorized'));
 			} else {
 				result.json().then(json => {
-					dispatch(messageSend(json.errorMessage));
+					this.dispatch(messageSend(json.errorMessage));
 				});
 			}
 		});

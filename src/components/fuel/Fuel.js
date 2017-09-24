@@ -6,7 +6,7 @@ import MobileStepper from 'material-ui/MobileStepper';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import FuelRest from '../../http/FuelRest';
 import FuelDialog from '../../containers/FuelDialog';
-import { addFuel, getFuels, nextFuels } from '../../actions';
+import { addFuel, getFuels, editFuel, removeFuel } from '../../actions/fuelActions';
 import * as DateUtils from '../../utils/DateUtils';
 import Edit from 'material-ui-icons/Edit';
 import Remove from 'material-ui-icons/Remove';
@@ -21,6 +21,8 @@ class Fuel extends React.Component {
     this.handleBack = this.handleBack.bind(this);
     this.addFuel = this.addFuel.bind(this);
     this.getFuels = this.getFuels.bind(this);
+    this.handleEditFuel = this.handleEditFuel.bind(this);
+    this.handleRemoveFuel = this.handleRemoveFuel.bind(this);
   }
 
   componentWillMount() {
@@ -36,8 +38,8 @@ class Fuel extends React.Component {
 
   getFuels() {
     const { carId, dispatch } = this.props;
-    this.fuelRest = new FuelRest(carId);
-    this.fuelRest.getFuels(dispatch).then(result => {
+    this.fuelRest = new FuelRest(carId, dispatch);
+    this.fuelRest.getFuels().then(result => {
       dispatch(getFuels(carId, result.number, result.totalPages, result.content));
     })
   }
@@ -47,10 +49,20 @@ class Fuel extends React.Component {
     dispatch(addFuel(carId));
   }
 
+  handleEditFuel(fuel){
+      const { carId, dispatch } = this.props;
+      dispatch(editFuel(carId, fuel));
+  }
+
+  handleRemoveFuel(fuelId){
+      const { carId, dispatch } = this.props;
+      dispatch(removeFuel(carId, fuelId));
+  }
+
   handleBack() {
     const { carId, dispatch, activeStep } = this.props;
     const nextStep = activeStep - 1;
-    this.fuelRest.getFuels(dispatch, nextStep).then(result => {
+    this.fuelRest.getFuels(nextStep).then(result => {
       dispatch(getFuels(carId, result.number, result.totalPages, result.content));
     })
   }
@@ -58,7 +70,7 @@ class Fuel extends React.Component {
   handleNext() {
     const { carId, dispatch, activeStep } = this.props;
     const nextStep = activeStep + 1;
-    this.fuelRest.getFuels(dispatch, nextStep).then(result => {
+    this.fuelRest.getFuels(nextStep).then(result => {
       dispatch(getFuels(carId, result.number, result.totalPages, result.content));
     })
   }
@@ -105,12 +117,12 @@ class Fuel extends React.Component {
                             {fuel.distance}
                           </TableCell>
                           <TableCell numeric>
-                            <Button fab className="littleButton">
+                            <Button fab className="littleButton" onClick={() => this.handleEditFuel(fuel)}>
                               <Edit />
                             </Button>
                           </TableCell>
                           <TableCell numeric>
-                            <Button fab className="littleButton">
+                            <Button fab className="littleButton" onClick={() => this.handleRemoveFuel(fuel.id)}>
                               <Remove />
                             </Button>
                           </TableCell>
