@@ -20,17 +20,18 @@ const TabContainer = props =>
 class Cars extends Component {
 
   constructor(props) {
+    console.log('construct ', props)
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.getCars = this.getCars.bind(this);
-  }
-
-  componentWillMount() {
-   this.getCars();
-  }
-
-  componentWillUpdate() {
     this.getCars();
+  }
+
+  componentWillUpdate(nextProp, nextState) {
+    const { reload } = nextProp;
+    if(reload) {
+      this.getCars();
+    }
   }
 
   getCars() {
@@ -73,9 +74,8 @@ class Cars extends Component {
             textColor="primary"
             scrollable
             scrollButtons="auto"
-            centered
-          >
-            {tabs}
+            centered>
+              {tabs}
             <Tab label="Add car" icon={<AddCircleOutline />}/>
           </Tabs>
         </AppBar>

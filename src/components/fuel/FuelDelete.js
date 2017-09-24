@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Button from 'material-ui/Button';
 import FuelRest from '../../http/FuelRest';
 import { cancelRemoveFuel, reloadFuels } from '../../actions/fuelActions';
+import { reloadCar } from '../../actions';
 
 class FuelDelete extends React.Component {
 
@@ -15,8 +16,15 @@ class FuelDelete extends React.Component {
 
 	handleConfirm() {
 		const { fuelId, carId, dispatch } = this.props;
-		this.fuelRest.deleteFuel(fuelId).then(() => dispatch(reloadFuels(carId)));
+		this.fuelRest.deleteFuel(fuelId).then(() => dispatch(this.reloadCar(carId)));
 	}
+
+	reloadCar = (carId) => {
+	    return function (dispatch) {
+	      dispatch(reloadCar());
+	      dispatch(reloadFuels(carId));
+	    }
+  	}
 
 	handleCancel() {
 		const { dispatch } = this.props;

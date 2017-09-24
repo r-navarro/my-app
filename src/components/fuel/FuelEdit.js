@@ -38,7 +38,6 @@ class FuelEdit extends React.Component {
     }
   }
 
-
   reloadCar = (carId) => {
     return function (dispatch) {
       dispatch(reloadCar());

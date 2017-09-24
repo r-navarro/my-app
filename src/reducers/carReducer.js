@@ -5,14 +5,16 @@ const initialState = {
 	cars:[],
 	car:{},
 	dialogOpen: false,
-	edit: true
+	edit: true,
+	reload: false,
 };
 
 const car = (state = initialState, action) => {
 	switch (action.type) {
 		case ActionTypes.GET_CARS:
 			return Object.assign({}, state, {
-				cars : action.cars
+				cars : action.cars,
+				reload: false,
 			});
 		case ActionTypes.ADD_CAR:
 			state.cars.push(action.car);
@@ -62,7 +64,7 @@ const car = (state = initialState, action) => {
 			});
 		case ActionTypes.RELOAD_CAR:
 			return Object.assign({}, state, {
-				reload:true,
+				reload: true,
 			});
 		default:
 			return state
