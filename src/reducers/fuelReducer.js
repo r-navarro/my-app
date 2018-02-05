@@ -11,13 +11,13 @@ const fuel = (state = initialState, action) => {
 	switch (action.type) {
 		case ActionTypes.RELOAD_FUELS:
 			return Object.assign({}, state, {
-				carId : action.carId,
+				carId: action.carId,
 				dialogAction: '',
 				reload: true,
 			});
 		case ActionTypes.GET_FUELS:
 			return Object.assign({}, state, {
-				carId : action.carId,
+				carId: action.carId,
 				dialogAction: '',
 				activeStep: action.activeStep,
 				steps: action.steps,
@@ -27,7 +27,7 @@ const fuel = (state = initialState, action) => {
 			});
 		case ActionTypes.NEXT_FUELS:
 			return Object.assign({}, state, {
-				carId : action.carId,
+				carId: action.carId,
 				dialogAction: '',
 				activeStep: action.activeStep,
 				steps: action.steps,
@@ -37,7 +37,7 @@ const fuel = (state = initialState, action) => {
 			});
 		case ActionTypes.ADD_FUEL:
 			return Object.assign({}, state, {
-				carId : action.carId,
+				carId: action.carId,
 				fuel: {
 					date: new Date(),
 				},
@@ -45,7 +45,7 @@ const fuel = (state = initialState, action) => {
 			});
 		case ActionTypes.EDIT_FUEL:
 			return Object.assign({}, state, {
-				carId : action.carId,
+				carId: action.carId,
 				fuel: action.fuel,
 				dialogAction: 'edit',
 			});
@@ -56,7 +56,7 @@ const fuel = (state = initialState, action) => {
 			});
 		case ActionTypes.REMOVE_FUEL:
 			return Object.assign({}, state, {
-				carId : action.carId,
+				carId: action.carId,
 				fuelId: action.fuelId,
 				dialogAction: 'delete',
 			});
@@ -64,6 +64,11 @@ const fuel = (state = initialState, action) => {
 			return Object.assign({}, state, {
 				fuel: {},
 				dialogAction: '',
+			});
+		case ActionTypes.GET_FUELS_DATA:
+			return Object.assign({}, state, {
+				carId: action.carId,
+				data: action.data,
 			});
 		default:
 			return state

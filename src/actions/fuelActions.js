@@ -9,6 +9,7 @@ export const REMOVE_FUEL = 'REMOVE_FUEL';
 export const CANCEL_REMOVE_FUEL = 'CANCEL_REMOVE_FUEL';
 export const RELOAD_FUELS = 'RELOAD_FUELS';
 export const NEXT_FUELS = 'NEXT_FUELS';
+export const GET_FUELS_DATA = 'GET_FUELS_DATA';
 
 
 
@@ -51,4 +52,10 @@ export const cancelRemoveFuel = () => {return {
 export const reloadFuels = (carId) => {return {
 	type: RELOAD_FUELS,
 	carId: carId,
+}};
+
+export const getFuelsData = (carId, data) => {return {
+	type: GET_FUELS_DATA,
+	carId: carId,
+	data: data,
 }};

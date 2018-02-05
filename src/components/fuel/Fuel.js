@@ -11,6 +11,7 @@ import * as DateUtils from '../../utils/DateUtils';
 import Edit from 'material-ui-icons/Edit';
 import Remove from 'material-ui-icons/Remove';
 import Button from 'material-ui/Button';
+import FuelGraph from './FuelGraph';
 
 
 class Fuel extends React.Component {
@@ -31,7 +32,7 @@ class Fuel extends React.Component {
 
   componentDidUpdate() {
     const { reload } = this.props;
-    if(reload){
+    if (reload) {
       this.getFuels();
     }
   }
@@ -44,19 +45,19 @@ class Fuel extends React.Component {
     })
   }
 
-  addFuel(){
+  addFuel() {
     const { carId, dispatch } = this.props;
     dispatch(addFuel(carId));
   }
 
-  handleEditFuel(fuel){
-      const { carId, dispatch } = this.props;
-      dispatch(editFuel(carId, fuel));
+  handleEditFuel(fuel) {
+    const { carId, dispatch } = this.props;
+    dispatch(editFuel(carId, fuel));
   }
 
-  handleRemoveFuel(fuelId){
-      const { carId, dispatch } = this.props;
-      dispatch(removeFuel(carId, fuelId));
+  handleRemoveFuel(fuelId) {
+    const { carId, dispatch } = this.props;
+    dispatch(removeFuel(carId, fuelId));
   }
 
   handleBack() {
@@ -77,61 +78,61 @@ class Fuel extends React.Component {
 
   render() {
     const { activeStep, steps, fuels } = this.props;
-    if(!fuels){
-      return(<div>No fuels yet</div>);
+    if (!fuels) {
+      return (<div>No fuels yet</div>);
     }
     return (
       <div className="fuel">
         <div className="fuelHeader">
           <LocalGasStation />
-          <AddCircleOutline onClick={this.addFuel}/>
+          <AddCircleOutline onClick={this.addFuel} />
         </div>
         <div>
           <div className="fuelWrapper">
             <div className="fuelTab">
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Date</TableCell>
-                      <TableCell numeric>Cost (€)</TableCell>
-                      <TableCell numeric>Quantity</TableCell>
-                      <TableCell numeric>Distance</TableCell>
-                      <TableCell numeric></TableCell>
-                      <TableCell numeric></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {fuels.map(fuel => {
-                      return(
-                        <TableRow key={fuel.id}>
-                          <TableCell>
-                            {DateUtils.convertDate(new Date(fuel.date))}
-                          </TableCell>
-                          <TableCell numeric>
-                            {fuel.cost}
-                          </TableCell>
-                          <TableCell numeric>
-                            {fuel.quantity}
-                          </TableCell>
-                          <TableCell numeric>
-                            {fuel.distance}
-                          </TableCell>
-                          <TableCell numeric>
-                            <Button fab className="littleButton" onClick={() => this.handleEditFuel(fuel)}>
-                              <Edit />
-                            </Button>
-                          </TableCell>
-                          <TableCell numeric>
-                            <Button fab className="littleButton" onClick={() => this.handleRemoveFuel(fuel.id)}>
-                              <Remove />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                        );
-                    })}
-                  </TableBody>
-                </Table>
-               <MobileStepper
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Date</TableCell>
+                    <TableCell numeric>Cost (€)</TableCell>
+                    <TableCell numeric>Quantity</TableCell>
+                    <TableCell numeric>Distance</TableCell>
+                    <TableCell numeric></TableCell>
+                    <TableCell numeric></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {fuels.map(fuel => {
+                    return (
+                      <TableRow key={fuel.id}>
+                        <TableCell>
+                          {DateUtils.convertDate(new Date(fuel.date))}
+                        </TableCell>
+                        <TableCell numeric>
+                          {fuel.cost}
+                        </TableCell>
+                        <TableCell numeric>
+                          {fuel.quantity}
+                        </TableCell>
+                        <TableCell numeric>
+                          {fuel.distance}
+                        </TableCell>
+                        <TableCell numeric>
+                          <Button fab className="littleButton" onClick={() => this.handleEditFuel(fuel)}>
+                            <Edit />
+                          </Button>
+                        </TableCell>
+                        <TableCell numeric>
+                          <Button fab className="littleButton" onClick={() => this.handleRemoveFuel(fuel.id)}>
+                            <Remove />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+              <MobileStepper
                 type="progress"
                 steps={steps}
                 position="static"
@@ -139,12 +140,10 @@ class Fuel extends React.Component {
                 onBack={this.handleBack}
                 onNext={this.handleNext}
                 disableBack={activeStep === 0}
-                disableNext={activeStep === steps-1}
+                disableNext={activeStep === steps - 1}
               />
             </div>
-            <div className="fuelTrend">
-              TODO
-            </div>
+            <FuelGraph />
           </div>
         </div>
         <div>

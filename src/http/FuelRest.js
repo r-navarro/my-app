@@ -65,4 +65,16 @@ export default class FuelRest {
 			}
 		});
 	}
+
+	getFuelsData() {
+		return FetchTypes.fetchGet(this.getBaseUrl() + `data`).then(result => {
+			if(result.status === 200) {
+				return result.json();
+			} else if (result.status === 403) {
+				this.dispatch(messageSend('Unauthorized'));
+			} else if (result.status === 404) {
+				this.dispatch(messageSend('Not found'));
+			}
+		});
+	}
 }
