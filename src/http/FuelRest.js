@@ -9,7 +9,7 @@ export default class FuelRest {
 	}
 
 	getBaseUrl() {
-		return `http://localhost:9090/vehicles/${this.carId}/fullTanks/`;
+		return `vehicles/${this.carId}/fullTanks/`;
 	}
 
 	getFuels(page=0) {

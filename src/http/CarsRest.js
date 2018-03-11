@@ -4,7 +4,7 @@ import { messageSend } from '../actions';
 export default class CarsRest {
 
 	getCars(dispatch) {
-		return fetchGet('http://localhost:9090/vehicles').then(result => {
+		return fetchGet('vehicles').then(result => {
 			if(result.status === 200) {
 				return result.json();
 			} else if (result.status === 403) {
@@ -16,7 +16,7 @@ export default class CarsRest {
 	}
 
 	addCar(car, dispatch) {
-		return fetchPost('http://localhost:9090/vehicles', car).then(result => {
+		return fetchPost('vehicles', car).then(result => {
 			if(result.status === 201) {
 				return result.json();
 			} else if (result.status === 403) {
@@ -30,7 +30,7 @@ export default class CarsRest {
 	}
 
 	updateCar(car, dispatch) {
-		return fetchPut('http://localhost:9090/vehicles', car).then(result => {
+		return fetchPut('vehicles', car).then(result => {
 			if(result.status === 201) {
 				return result.json();
 			} else if (result.status === 403) {
@@ -44,7 +44,7 @@ export default class CarsRest {
 	}
 
 	deleteCar(car, dispatch) {
-		return fetchDelete(`http://localhost:9090/vehicles/${car.id}`).then(result => {
+		return fetchDelete(`vehicles/${car.id}`).then(result => {
 			if(result.status === 204) {
 				return result.text();
 			} else if (result.status === 403) {

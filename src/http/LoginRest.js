@@ -1,18 +1,14 @@
-const loginRest = (loginFromView) => {
-	const headers = new Headers();
-	headers.append('Content-Type', 'application/json');
+import * as FetchTypes from './FetchProvider';
 
-	const body = JSON.stringify({
+const loginRest = (loginFromView) => {
+
+	const body = {
 		'userName': loginFromView.user,
 		'password': loginFromView.password,
-	});
+	};
 
 
-	return fetch('http://localhost:9090/login', {  
-		method: 'post',
-		headers: {'Content-Type': 'application/json'},
-		body: body,
-	});
+	return FetchTypes.fetchPost('login', body);
 }
 
 

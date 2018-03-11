@@ -11,7 +11,7 @@ export default class HomeRest {
 		});
 
 
-		fetch('http://localhost:9090/login', {  
+		fetch('login', {  
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: body,
@@ -24,7 +24,7 @@ export default class HomeRest {
 		const headers = new Headers();
 		headers.append('Authorization', jwtToken);
 		headers.append('Content-Type', 'application/json');
-		fetch('http://localhost:9090/users', {  
+		fetch('users', {  
 			method: 'get',
 			headers: headers,
 		}).then(res => {
